@@ -2,7 +2,8 @@
 -- 현재 급여가 많은 직원부터 직원의 사번, 이름, 그리고 연봉을 출력 하시오.
 select a.salary, b.emp_no, b.first_name
 from salaries a join employees b on a.emp_no = b.emp_no
-order by a.salary;
+where a.to_date = '9999-01-01'
+order by a.salary desc;
 
 -- 문제2.
 -- 전체 사원의 사번, 이름, 현재 직책을 이름 순서로 출력하세요.
@@ -15,7 +16,7 @@ order by a.first_name;
 -- 전체 사원의 사번, 이름, 현재 부서를 이름 순서로 출력하세요..
 select a.emp_no, a.first_name, c.dept_name
 from employees a join dept_emp b on a.emp_no = b.emp_no join departments c on b.dept_no = c.dept_no
-where b.to_date = '9999-01-01'
+where b.to_date = '9999-01-01' 
 order by a.first_name;
 
 -- 문제4.
@@ -36,9 +37,9 @@ where b.to_date != '9999-01-01' and b.title = 'Technique Leader';
 
 -- 문제6.
 -- 직원 이름(first_name) 중에서 S(대문자)로 시작하는 직원들의 이름, 부서명, 직책을 조회하세요.
-select a.first_name, c.dept_name, d.title
+select a.last_name, c.dept_name, d.title
 from employees a join dept_emp b on a.emp_no = b.emp_no join departments c on b.dept_no = c.dept_no join titles d on a.emp_no = d.emp_no
-where a.first_name like 'S%';
+where a.last_name like 'S%';
 
 -- 문제7.
 -- 현재, 직책이 Engineer인 사원 중에서 현재 급여가 40000 이상인 사원을 급여가 큰 순서대로 출력하세요.
