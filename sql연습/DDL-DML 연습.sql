@@ -12,10 +12,13 @@ create table member(
 desc member;
 
 alter table member add column juminbunho char(13) not null;
+desc member;
 
 alter table member drop column juminbunho;
+desc member;
 
 alter table member add column juminbunho char(13) not null after email;
+desc member;
 
 alter table member change column department dept varchar(100) not null;
 desc member;
@@ -29,7 +32,7 @@ desc member;
 -- insert
 insert 
 	into member
-    values(null, 'kickscar@gmail.com', password('1234'),'신친규','개발팀');
+    values(null, 'kickscar@gmail.com', password('1234'),'신친규','개발팀',null);
 
 insert 
 	into member(no,email,name,dept,password)
@@ -37,7 +40,10 @@ insert
 select * from member;
 
 -- update
-
+update member
+set email = 'kickscar3@gmail.com',password=password('4321')
+where no = 2
+select * from member;
 
 -- delete
 delete

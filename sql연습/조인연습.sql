@@ -34,6 +34,11 @@ from salaries a join titles b using(emp_no)
 where a.to_date = '9999-01-01'
 and b.to_date = '9999-01-01';
 
+select count(*)
+from salaries a join titles b using(emp_no)
+where a.to_date = '9999-01-01'
+and b.to_date = '9999-01-01'
+
 -- 3) join ~ on
 -- 예제) 현재, 직책별 평균 연봉을 큰 순서대로 출력하세요.
 select a.title, avg(b.salary)
@@ -83,4 +88,5 @@ and b.to_date = '9999-01-01'
 and c.to_date = '9999-01-01'
 and d.to_date = '9999-01-01'
 and c.title = 'Engineer'
-group by a.dept_name;
+group by a.dept_name
+order by avg(a.salary) descs;
