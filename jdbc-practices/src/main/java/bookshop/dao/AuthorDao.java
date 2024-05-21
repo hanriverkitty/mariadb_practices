@@ -50,4 +50,40 @@ public class AuthorDao {
 		return result;
 	}
 
+	public int insert(AuthorVo vo) {
+		int result = 0;
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt1 = conn.prepareStatement("insert into author(name) values(?)");
+				PreparedStatement pstmt2 = conn.prepareStatement("select last_insert_id() from dual");
+			) {
+			pstmt1.setString(1, vo.getName());
+			result = pstmt1.executeUpdate();
+			ResultSet rs = pstmt2.executeQuery();
+//			if(rs.next()) {
+//				vo.setNo(rs.getLong(1));
+//			}
+			vo.setNo(rs.next() ? rs.getLong(1) : null);
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패: " + e);
+		}
+		return result;
+	}
+
+	public int deleteByNo(Long no) {
+		int result = 0;
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("delete from author where no=?");
+			) {
+			pstmt.setLong(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패: " + e);
+		}
+		return result;
+		
+	}
+
 }
