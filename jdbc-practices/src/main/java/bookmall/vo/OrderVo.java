@@ -3,11 +3,11 @@ package bookmall.vo;
 
 public class OrderVo {
 	private Long no;
-	private String order_num;
+	private String number;
 	private String status;
-	private int total_price;
-	private String address;
-	private Long user_no;
+	private int payment;
+	private String shipping;
+	private Long userNo;
 	
 	public Long getNo() {
 		return no;
@@ -15,11 +15,11 @@ public class OrderVo {
 	public void setNo(Long no) {
 		this.no = no;
 	}
-	public String getOrder_num() {
-		return order_num;
+	public String getNumber() {
+		return number;
 	}
-	public void setOrder_num(String order_num) {
-		this.order_num = order_num;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 	public String getStatus() {
 		return status;
@@ -27,24 +27,26 @@ public class OrderVo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getTotal_price() {
-		return total_price;
+	public int getPayment() {
+		return payment;
 	}
-	public void setTotal_price(int total_price) {
-		this.total_price = total_price;
+	public void setPayment(int payment) {
+		this.payment = payment;
 	}
-	public String getAddress() {
-		return address;
+	public String getShipping() {
+		return shipping;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setShipping(String shipping) {
+		this.shipping = shipping;
 	}
-	public Long getUser_no() {
-		return user_no;
+	public Long getUserNo() {
+		return userNo;
 	}
-	public void setUser_no(Long user_no) {
-		this.user_no = user_no;
+	public void setUserNo(Long userNo) {
+		this.userNo = userNo;
 	}
+	
+	
 	
 	
 }

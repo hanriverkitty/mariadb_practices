@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bookmall.vo.CartVo;
-import bookmall.vo.UserVo;
 
 public class CartDao {
 	private Connection getConnection() throws SQLException {
@@ -45,21 +44,27 @@ public class CartDao {
 
 	public List<CartVo> findAll() {
 		List<CartVo> result = new ArrayList<>();
-
+		System.out.println("i");
 		try (Connection conn = getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("select * from cart");
-				ResultSet rs = pstmt.executeQuery();) {
+				PreparedStatement pstmt = conn.prepareStatement("select a.quantity, a.user_no, a.book_no, b.title from cart a, book b where a.book_no=b.no");
+				ResultSet rs = pstmt.executeQuery();
+				) {
+			System.out.println("hi");
+			System.out.println(rs);
 			while (rs.next()) {
 				int quantity = rs.getInt(1);
 				Long userNo = rs.getLong(2);
 				Long BookNo = rs.getLong(3);
-				
+				String title = rs.getString(4);
 				CartVo vo = new CartVo();
 				vo.setQuantity(quantity);
 				vo.setUserNo(userNo);
 				vo.setBookNo(BookNo);
+				vo.setBookTitle(title);
+				System.out.println(vo.toString());
 				result.add(vo);
 			}
+			
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -83,21 +88,23 @@ public class CartDao {
 	}
 	public List<CartVo> findByUserNo(Long no) {
 		List<CartVo> result = new ArrayList<>();
-
 		try (Connection conn = getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("select * from cart where user_no = ?");
-				ResultSet rs = pstmt.executeQuery();) {
+				PreparedStatement pstmt = conn.prepareStatement("select a.quantity, a.user_no, a.book_no, b.title from cart a, book b where a.book_no=b.no");
+				ResultSet rs = pstmt.executeQuery();
+				) {
 			while (rs.next()) {
 				int quantity = rs.getInt(1);
 				Long userNo = rs.getLong(2);
 				Long BookNo = rs.getLong(3);
-				
+				String title = rs.getString(4);
 				CartVo vo = new CartVo();
 				vo.setQuantity(quantity);
 				vo.setUserNo(userNo);
 				vo.setBookNo(BookNo);
+				vo.setBookTitle(title);
 				result.add(vo);
 			}
+			
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
