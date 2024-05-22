@@ -67,11 +67,12 @@ public class CartDao {
 
 		return result;
 	}
-	public void deleteByUserNoAndBookNo(Long userNo, Long no) {
+	public int deleteByUserNoAndBookNo(Long userNo, Long bookNo) {
 		int result = 0;
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("delete from cart where user_no=? and book_no=?");) {
-			pstmt.setLong(1, no);
+			pstmt.setLong(1, userNo);
+			pstmt.setLong(2, bookNo);
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -79,5 +80,29 @@ public class CartDao {
 		}
 		return result;
 		
+	}
+	public List<CartVo> findByUserNo(Long no) {
+		List<CartVo> result = new ArrayList<>();
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("select * from cart where user_no = ?");
+				ResultSet rs = pstmt.executeQuery();) {
+			while (rs.next()) {
+				int quantity = rs.getInt(1);
+				Long userNo = rs.getLong(2);
+				Long BookNo = rs.getLong(3);
+				
+				CartVo vo = new CartVo();
+				vo.setQuantity(quantity);
+				vo.setUserNo(userNo);
+				vo.setBookNo(BookNo);
+				result.add(vo);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		return result;
 	}
 }
